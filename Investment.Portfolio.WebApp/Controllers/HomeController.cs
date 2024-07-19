@@ -1,4 +1,4 @@
-﻿using Dashboard.Bolsa.WebApp.Models;
+﻿using Investment.Portfolio.WebApp.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 

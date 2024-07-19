@@ -1,4 +1,4 @@
-namespace Dashboard.Bolsa.WebApp.Models
+namespace Investment.Portfolio.WebApp.Models
 {
     public class ErrorViewModel
     {
