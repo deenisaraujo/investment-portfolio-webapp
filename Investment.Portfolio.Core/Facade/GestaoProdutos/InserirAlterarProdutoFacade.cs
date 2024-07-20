@@ -14,10 +14,17 @@ namespace Investment.Portfolio.Core.Facade.GestaoProdutos
         }
         public Task<StatusModel> InserirAlterarProduto(ProdutoRequest request)
         {
-            if (request.IdProduto == 0)
-                return _gestaoProdutosRepository.InserirProduto(request);
+            if (!_gestaoProdutosRepository.VerificaExisteProduto(request.Ativo))
+            {
+                if (request.IdProduto == 0)
+                    return _gestaoProdutosRepository.InserirProduto(request);
+                else
+                    return _gestaoProdutosRepository.AlterarProduto(request);
+            }
             else
-                return _gestaoProdutosRepository.AlterarProduto(request);
+            {
+                return Task.FromResult(new StatusModel() { Status = 0, Mensagem = "Já existe esse produto!" });
+            }
         }
     }
 }

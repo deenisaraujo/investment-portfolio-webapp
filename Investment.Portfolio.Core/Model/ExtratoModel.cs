@@ -6,6 +6,7 @@
         public DateTime DataOperacao { get; set; }
         public long CpfCnpj { get; set; }
         public string Ativo { get; set; }
+        public string TipoProduto { get; set; }
         public string Negociacao { get; set; }
         public char TipoOperacao { get; set; }
         public string EspecificacaoTitulo { get; set; }

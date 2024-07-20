@@ -12,8 +12,9 @@ namespace Investment.Portfolio.Core.Repository.GestaoProdutos
     {
         private readonly string QueryAtualizarProduto = "";
         private readonly string QueryDeletarProduto = "";
-        private readonly string QueryInserirProduto = "";
+        private readonly string QueryInserirProduto = "INSERT INTO invest_portf.TB_PRODUTO(DS_ATIVO,DS_TIPO_PRODUTO,DS_ESPECIFICACAO_TITULO,DS_NEGOCIACAO,NR_QUANTIDADE_DISPONIVEL,VL_PRECO,DT_ALTERACAO)";
         private readonly string QueryListarProduto = "";
+        private readonly string QueryVerificaProdutoExiste = "SELECT * FROM invest_portf.TB_PRODUTO";
         private readonly IConnectionFactory _factory;
         public GestaoProdutosRepository(IConnectionFactory factory)
         {
@@ -69,7 +70,8 @@ namespace Investment.Portfolio.Core.Repository.GestaoProdutos
                     using (var cmd = conn.CreateCommand())
                     {
                         conn.Open();
-                        cmd.CommandText = QueryInserirProduto;
+                        
+                        cmd.CommandText = QueryInserirProduto + $"VALUES('{request.Ativo}','{request.TipoProduto}','{request.EspecificacaoTitulo}','{request.Negociacao}',{request.Quantidade},{request.Preco.ToString().Replace(",",".")},sysdate)";
                         await conn.ExecuteAsync(cmd.CommandText);
                     }
                 }
@@ -98,6 +100,26 @@ namespace Investment.Portfolio.Core.Repository.GestaoProdutos
             catch (Exception)
             {
                 return Enumerable.Empty<ProdutosModel>();
+            }
+        }
+        public bool VerificaExisteProduto(string produto)
+        {
+            try
+            {
+                using (var conn = _factory.CreateConnection(DataBaseConnection.INVEST_PORTF))
+                {
+                    using (var cmd = conn.CreateCommand())
+                    {
+                        conn.Open();
+                        cmd.CommandText = QueryVerificaProdutoExiste + $" WHERE DS_ATIVO = '{produto}'";
+                        var result = conn.Query<int>(cmd.CommandText).First();
+                        return result >= 0 ? true : false;
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                return true;
             }
         }
     }

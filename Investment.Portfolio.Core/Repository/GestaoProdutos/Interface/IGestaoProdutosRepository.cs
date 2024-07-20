@@ -9,5 +9,6 @@ namespace Investment.Portfolio.Core.Repository.GestaoProdutos.Interface
         Task<StatusModel> DeletarProduto(long cpfCnpj, int codProduto);
         Task<StatusModel> InserirProduto(ProdutoRequest request);
         Task<IEnumerable<ProdutosModel>> ListarProduto(string produto);
+        bool VerificaExisteProduto(string produto);
     }
 }
