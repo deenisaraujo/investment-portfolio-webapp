@@ -4,6 +4,6 @@ namespace Investment.Portfolio.Core.Command.GestaoProdutos.Interface
 {
     public interface IDeletarProdutoCommand
     {
-        Task<StatusModel> Executar(long cpfCnpj, int codProduto);
+        Task<StatusModel> Executar(int codProduto);
     }
 }

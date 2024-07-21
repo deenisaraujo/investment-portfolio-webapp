@@ -11,6 +11,6 @@ namespace Investment.Portfolio.Core.Command.GestaoProdutos
         {
             _gestaoProdutosRepository = gestaoProdutosRepository;
         }
-        public Task<StatusModel> Executar(long cpfCnpj, int codProduto) => _gestaoProdutosRepository.DeletarProduto(cpfCnpj, codProduto);
+        public Task<StatusModel> Executar(int codProduto) => _gestaoProdutosRepository.DeletarProduto(codProduto);
     }
 }

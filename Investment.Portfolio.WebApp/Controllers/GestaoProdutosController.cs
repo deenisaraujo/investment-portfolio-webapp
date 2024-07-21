@@ -7,19 +7,22 @@ namespace Investment.Portfolio.WebApp.Controllers
     public class GestaoProdutosController : Controller
     {
         public readonly IDeletarProdutoCommand _deletarProdutoCommand;
-        public readonly IEnvioEmailCommand _envioEmailCommand;
+        public readonly IEnviarEmailCommand _enviarEmailCommand;
         public readonly IInserirAlterarProdutoCommand _inserirAlterarProdutoCommand;
         public readonly IListarProdutosCommand _listarProdutosCommand;
+        private readonly IConfiguration _configuration;
         public GestaoProdutosController(
          IDeletarProdutoCommand deletarProdutoCommand,
-         IEnvioEmailCommand envioEmailCommand,
+         IEnviarEmailCommand enviarEmailCommand,
          IInserirAlterarProdutoCommand inserirAlterarProdutoCommand,
-         IListarProdutosCommand listarProdutosCommand)
+         IListarProdutosCommand listarProdutosCommand,
+         IConfiguration config)
         {
             _deletarProdutoCommand = deletarProdutoCommand;
-            _envioEmailCommand = envioEmailCommand;
+            _enviarEmailCommand = enviarEmailCommand;
             _inserirAlterarProdutoCommand = inserirAlterarProdutoCommand;
             _listarProdutosCommand = listarProdutosCommand;
+            _configuration = config;
         }
         public IActionResult Index()
         {
@@ -29,17 +32,18 @@ namespace Investment.Portfolio.WebApp.Controllers
         /// <summary>
         /// Método responsável por deletar os produtos do portfólio.
         /// </summary>
-        public async Task<IActionResult> DeletarProduto(long cpfCnpj, int codProduto)
+        public async Task<IActionResult> DeletarProduto(int codProduto)
         {
-            return Ok(await _deletarProdutoCommand.Executar(cpfCnpj, codProduto));
+            return Ok(await _deletarProdutoCommand.Executar(codProduto));
         }
 
         /// <summary>
         /// Método responsável por enviar email aos administradores sobre o vencimento próximo dos produtos.
         /// </summary>
-        public async Task<IActionResult> EnvioEmail()
+        public async Task<IActionResult> EnvioEmail(long cpfCnpj)
         {
-            return Ok();
+            var conta = _configuration.GetSection("DadosEmail").Get<EmailRequest>();
+            return Ok(await _enviarEmailCommand.Executar(conta));
         }
 
         /// <summary>
@@ -53,9 +57,9 @@ namespace Investment.Portfolio.WebApp.Controllers
         /// <summary>
         /// Método responsável por listar os produtos do portfólio.
         /// </summary>
-        public async Task<IActionResult> ListarProdutos(string produto)
+        public async Task<IActionResult> ListarProdutos(int idProduto, string produto)
         {
-            return Ok(await _listarProdutosCommand.Executar(produto));
+            return Ok(await _listarProdutosCommand.Executar(idProduto, produto));
         } 
     }
 }

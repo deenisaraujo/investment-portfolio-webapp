@@ -1,10 +1,10 @@
-﻿using Investment.Portfolio.Core.Facade.OperacoesCompraVenda.Interface;
+﻿using Investment.Portfolio.Core.Enum;
+using Investment.Portfolio.Core.Facade.OperacoesCompraVenda.Interface;
 using Investment.Portfolio.Core.Model;
-using Investment.Portfolio.Core.Repository.CarteiraCliente.Interface;
-using Investment.Portfolio.Core.Repository.GestaoProdutos;
 using Investment.Portfolio.Core.Repository.GestaoProdutos.Interface;
 using Investment.Portfolio.Core.Repository.OperacoesCompraVenda.Interface;
 using Investment.Portfolio.Core.Request;
+using System.Net;
 
 namespace Investment.Portfolio.Core.Facade.OperacoesCompraVenda
 {
@@ -17,25 +17,37 @@ namespace Investment.Portfolio.Core.Facade.OperacoesCompraVenda
             _operacoesCompraVendaRepository = operacoesCompraVendaRepository;
             _gestaoProdutosRepository = gestaoProdutosRepository;
         }
+        /// <summary>
+        /// Método responsável por identificar e executar o tipo de operação (Compra, Venda) 
+        /// e atualizar a quantidade dispoível do produto.
+        /// </summary>
         public Task<StatusModel> OperacoesCompraVenda(OrdemRequest request)
         {
-            bool executado;
-            switch (request.TipoOperacao)
-            {
-                case 'C':
-                    executado = _operacoesCompraVendaRepository.OrdemCompraProduto(request);
-                    break;
-                case 'V':
-                    executado = _operacoesCompraVendaRepository.OrdemVendaProduto(request);
-                    break;
-                default:
-                    return Task.FromResult(new StatusModel() { Status = 0, Mensagem = "Não existe ordem de compra ou venda!"});
-            }
+            bool executado = false;
+
+            //Consulta o produto
+            var produto = _gestaoProdutosRepository.ListarProduto(request.IdProduto, null).Result.First();
+            
+            //Verifica se há disponibilidade do produto
+            if (produto.QuantidadeDisponivel > 0)
+                switch (request.TipoOperacao)
+                {
+                    //Atualiza a quantidade disponível do produto para compra ou venda
+                    case TipoOperacaoEnum.Compra:
+                         executado = _gestaoProdutosRepository.AlterarProduto(new ProdutoRequest() { IdProduto = request.IdProduto, Quantidade = produto.QuantidadeDisponivel - request.Quantidade, EhOrdem = true }).IsCompletedSuccessfully;
+                        break;
+                    case TipoOperacaoEnum.Venda:
+                        executado = _gestaoProdutosRepository.AlterarProduto(new ProdutoRequest() { IdProduto = request.IdProduto, Quantidade = produto.QuantidadeDisponivel + request.Quantidade, EhOrdem = true }).IsCompletedSuccessfully;
+                        break;
+                    default:
+                        return Task.FromResult(new StatusModel() { Status = HttpStatusCode.OK, Mensagem = "Não existe ordem de compra ou venda!" });
+                }
+
+            //Registra a compra ou venda do produto no banco de dados
             if (executado)
-                //Atualiza a quantidade disponivel do produto após efetuar uma venda ou compra de produto
-                return _gestaoProdutosRepository.AlterarProduto(new ProdutoRequest());
+                return _operacoesCompraVendaRepository.OrdemCompraVendaProduto(request);
             else
-                return Task.FromResult(new StatusModel() {Status = 0, Mensagem = "Erro ao tentar efetuar " + request.TipoOperacao });
+                return Task.FromResult(new StatusModel() { Status = HttpStatusCode.BadRequest, Mensagem = "Erro ao tentar efetuar compra ou venda de produto!" });
         }
     }
 }

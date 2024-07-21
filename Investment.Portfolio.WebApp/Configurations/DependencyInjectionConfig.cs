@@ -21,6 +21,7 @@ namespace Investment.Portfolio.WebApp.Configurations
             services.ConfigCommand();
             services.ConfigFacade();
             services.ConfigRepository();
+            services.ConfigService();
 
             return services;
         }

@@ -1,8 +1,10 @@
-﻿namespace Investment.Portfolio.Core.Model
+﻿using System.Net;
+
+namespace Investment.Portfolio.Core.Model
 {
     public class StatusModel
     {
-        public int Status { get; set; }
+        public HttpStatusCode Status { get; set; }
         public string Mensagem { get; set; }
     }
 }

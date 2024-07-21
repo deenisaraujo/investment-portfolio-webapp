@@ -13,5 +13,6 @@
         public int Quantidade { get; set; }
         public decimal Preco { get; set; }
         public decimal ValorOperacao { get; set; }
+        public DateTime DataAlteracao { get; set; }
     }
 }

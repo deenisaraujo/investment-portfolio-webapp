@@ -11,6 +11,6 @@ namespace Investment.Portfolio.Core.Command.GestaoProdutos
         {
             _gestaoProdutosRepository = gestaoProdutosRepository;
         }
-        public Task<IEnumerable<ProdutosModel>> Executar(string produto) => _gestaoProdutosRepository.ListarProduto(produto);
+        public Task<IEnumerable<ProdutosModel>> Executar(int idProduto, string produto) => _gestaoProdutosRepository.ListarProduto(idProduto, produto);
     }
 }

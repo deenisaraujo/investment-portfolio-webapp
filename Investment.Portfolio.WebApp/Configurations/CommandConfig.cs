@@ -17,7 +17,7 @@ namespace Investment.Portfolio.WebApp.Configurations
             
             //Gestão de Produtos
             services.AddScoped<IDeletarProdutoCommand, DeletarProdutoCommand>();
-            services.AddScoped<IEnvioEmailCommand, EnvioEmailCommand>();
+            services.AddScoped<IEnviarEmailCommand, EnviarEmailCommand>();
             services.AddScoped<IInserirAlterarProdutoCommand, InserirAlterarProdutoCommand>();
             services.AddScoped<IListarProdutosCommand, ListarProdutosCommand>();
 

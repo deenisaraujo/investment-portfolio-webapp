@@ -5,8 +5,7 @@ namespace Investment.Portfolio.Core.Repository.OperacoesCompraVenda.Interface
 {
     public interface IOperacoesCompraVendaRepository
     {
-        bool OrdemCompraProduto(OrdemRequest request);
-        bool OrdemVendaProduto(OrdemRequest request);
+        Task<StatusModel> OrdemCompraVendaProduto(OrdemRequest request);
         Task<IEnumerable<ExtratoModel>> CarregarExtrato(DateTime dataExtrato);
     }
 }

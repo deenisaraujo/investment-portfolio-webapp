@@ -5,6 +5,7 @@ using Investment.Portfolio.Core.Repository.OperacoesCompraVenda.Interface;
 using Dapper;
 using Investment.Portfolio.Core.Dto;
 using Investment.Portfolio.Core.Request;
+using System.Net;
 
 namespace Investment.Portfolio.Core.Repository.OperacoesCompraVenda
 {
@@ -12,13 +13,14 @@ namespace Investment.Portfolio.Core.Repository.OperacoesCompraVenda
     {
         private readonly string QueryCompra = "";
         private readonly string QueryVenda = "";
+        private readonly string QueryExtrato = "";
         private readonly IConnectionFactory _factory;
         public OperacoesCompraVendaRepository(IConnectionFactory factory)
         {
             _factory = factory;
         }
 
-        public bool OrdemCompraProduto(OrdemRequest request)
+        public async Task<StatusModel> OrdemCompraVendaProduto(OrdemRequest request)
         {
             try
             {
@@ -28,34 +30,14 @@ namespace Investment.Portfolio.Core.Repository.OperacoesCompraVenda
                     {
                         conn.Open();
                         cmd.CommandText = QueryCompra;
-                        conn.ExecuteAsync(cmd.CommandText);
+                        await conn.ExecuteAsync(cmd.CommandText);
                     }
                 }
-                return true;
+                return await Task.FromResult(new StatusModel() { Status = HttpStatusCode.OK, Mensagem = $"{request.TipoOperacao.ToString()} efetuada com sucesso!" });
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return false;
-            }
-        }
-        public bool OrdemVendaProduto(OrdemRequest request)
-        {
-            try
-            {
-                using (var conn = _factory.CreateConnection(DataBaseConnection.INVEST_PORTF))
-                {
-                    using (var cmd = conn.CreateCommand())
-                    {
-                        conn.Open();
-                        cmd.CommandText = QueryVenda;
-                        conn.ExecuteAsync(cmd.CommandText);
-                    }
-                }
-                return true;
-            }
-            catch (Exception)
-            {
-                return false;
+                return await Task.FromResult(new StatusModel() { Status = HttpStatusCode.BadRequest, Mensagem = $"Erro ao tentar {request.TipoOperacao.ToString()} produto: " + ex.Message });
             }
         }
 
@@ -68,7 +50,7 @@ namespace Investment.Portfolio.Core.Repository.OperacoesCompraVenda
                     using (var cmd = conn.CreateCommand())
                     {
                         conn.Open();
-                        cmd.CommandText = QueryVenda;
+                        cmd.CommandText = QueryExtrato;
                         var result = await conn.QueryAsync<ExtratoDto>(cmd.CommandText);
                         return result.Select(x => x.toModel());
                     }

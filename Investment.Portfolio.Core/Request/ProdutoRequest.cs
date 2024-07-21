@@ -9,5 +9,6 @@
         public string Negociacao { get; set; }
         public int Quantidade { get; set; }
         public decimal Preco { get; set; }
+        public bool EhOrdem { get; set; }
     }
 }

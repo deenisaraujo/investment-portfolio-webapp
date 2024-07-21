@@ -15,6 +15,7 @@ namespace Investment.Portfolio.Core.Dto
         public int NR_QUANTIDADE { get; set; }
         public decimal VL_PRECO { get; set; }
         public decimal VL_OPERACAO { get; set; }
+        public DateTime DT_ALTERACAO { get; set; }
 
         public ExtratoModel toModel() =>
              new()
@@ -29,7 +30,8 @@ namespace Investment.Portfolio.Core.Dto
                  EspecificacaoTitulo = DS_ESPECIFICACAO_TITULO,
                  Quantidade = NR_QUANTIDADE,
                  Preco = VL_PRECO,
-                 ValorOperacao = VL_OPERACAO
+                 ValorOperacao = VL_OPERACAO,
+                 DataAlteracao = DT_ALTERACAO
              };
     }
 }
