@@ -5,7 +5,7 @@ namespace Investment.Portfolio.Core.Repository.OperacoesCompraVenda.Interface
 {
     public interface IOperacoesCompraVendaRepository
     {
-        Task<StatusModel> OrdemCompraVendaProduto(OrdemRequest request);
+        Task<StatusModel> OrdemCompraVendaProduto(ProdutosModel produto, OrdemRequest ordem);
         Task<IEnumerable<ExtratoModel>> CarregarExtrato(DateTime dataExtrato);
     }
 }

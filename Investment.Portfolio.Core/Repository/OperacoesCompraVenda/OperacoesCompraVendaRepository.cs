@@ -4,15 +4,14 @@ using Investment.Portfolio.Core.Model;
 using Investment.Portfolio.Core.Repository.OperacoesCompraVenda.Interface;
 using Dapper;
 using Investment.Portfolio.Core.Dto;
-using Investment.Portfolio.Core.Request;
 using System.Net;
+using Investment.Portfolio.Core.Request;
 
 namespace Investment.Portfolio.Core.Repository.OperacoesCompraVenda
 {
     public class OperacoesCompraVendaRepository : IOperacoesCompraVendaRepository
     {
-        private readonly string QueryCompra = "";
-        private readonly string QueryVenda = "";
+        private readonly string QueryCompraVenda = "INSERT INTO invest_portf.TB_ORDEM(ID_PRODUTO,NR_CPF_CNPJ,DS_ATIVO,DS_TIPO_PRODUTO,DS_NEGOCIACAO,DS_TIPO_OPERACAO,DS_ESPECIFICACAO_TITULO,NR_QUANTIDADE,VL_PRECO,VL_OPERACAO,DT_OPERACAO)";
         private readonly string QueryExtrato = "";
         private readonly IConnectionFactory _factory;
         public OperacoesCompraVendaRepository(IConnectionFactory factory)
@@ -20,7 +19,7 @@ namespace Investment.Portfolio.Core.Repository.OperacoesCompraVenda
             _factory = factory;
         }
 
-        public async Task<StatusModel> OrdemCompraVendaProduto(OrdemRequest request)
+        public async Task<StatusModel> OrdemCompraVendaProduto(ProdutosModel produto, OrdemRequest ordem)
         {
             try
             {
@@ -29,15 +28,15 @@ namespace Investment.Portfolio.Core.Repository.OperacoesCompraVenda
                     using (var cmd = conn.CreateCommand())
                     {
                         conn.Open();
-                        cmd.CommandText = QueryCompra;
+                        cmd.CommandText = QueryCompraVenda + $" VALUES({produto.IdProduto},{ordem.CpfCnpj},'{produto.Ativo}', '{produto.TipoProduto}', '{produto.Negociacao}', '{ordem.TipoOperacao}', '{produto.EspecificacaoTitulo}', {produto.QuantidadeDisponivel}, {produto.Preco.ToString().Replace(",", ".")}, {(produto.Preco * ordem.Quantidade).ToString().Replace(",", ".")}, '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}')";
                         await conn.ExecuteAsync(cmd.CommandText);
                     }
                 }
-                return await Task.FromResult(new StatusModel() { Status = HttpStatusCode.OK, Mensagem = $"{request.TipoOperacao.ToString()} efetuada com sucesso!" });
+                return await Task.FromResult(new StatusModel() { Status = HttpStatusCode.OK, Mensagem = $"{ordem.TipoOperacao.ToString()} efetuada com sucesso!" });
             }
             catch (Exception ex)
             {
-                return await Task.FromResult(new StatusModel() { Status = HttpStatusCode.BadRequest, Mensagem = $"Erro ao tentar {request.TipoOperacao.ToString()} produto: " + ex.Message });
+                return await Task.FromResult(new StatusModel() { Status = HttpStatusCode.BadRequest, Mensagem = $"Erro ao tentar {ordem.TipoOperacao.ToString()} produto: " + ex.Message });
             }
         }
 

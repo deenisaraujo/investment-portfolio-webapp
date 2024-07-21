@@ -6,11 +6,11 @@ namespace Investment.Portfolio.WebApp.Controllers
 {
     public class OperacoesCompraVendaController : Controller
     {
-        public readonly IOperacaoCompraVendaCommand _operacaoCompraCommand;
+        public readonly IOperacaoCompraVendaCommand _operacaoCompraVendaCommand;
         public OperacoesCompraVendaController(
-         IOperacaoCompraVendaCommand operacaoCompraCommand)
+         IOperacaoCompraVendaCommand operacaoCompraVendaCommand)
         {
-            _operacaoCompraCommand = operacaoCompraCommand;
+            _operacaoCompraVendaCommand = operacaoCompraVendaCommand;
         }
         public IActionResult Index()
         {
@@ -20,9 +20,9 @@ namespace Investment.Portfolio.WebApp.Controllers
         /// <summary>
         /// Método responsável por efetuar compra e venda de produto e atualizar carteira do cliente.
         /// </summary>
-        public async Task<IActionResult> CompraProduto(OrdemRequest request)
+        public async Task<IActionResult> CompraVendaProduto(OrdemRequest request)
         {
-            return Ok(await _operacaoCompraCommand.Executar(request));
+            return Ok(await _operacaoCompraVendaCommand.Executar(request));
         }
     }
 }

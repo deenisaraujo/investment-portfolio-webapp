@@ -9,6 +9,7 @@ namespace Investment.Portfolio.Core.Repository.GestaoProdutos.Interface
         Task<StatusModel> DeletarProduto(int codProduto);
         Task<StatusModel> InserirProduto(ProdutoRequest request);
         Task<IEnumerable<ProdutosModel>> ListarProduto(int idProduto, string produto);
+        Task<IEnumerable<ProdutosModel>> ListarProdutoProximoVencimento(int DiasParaVencer);
         bool VerificaExisteProduto(string produto);
     }
 }

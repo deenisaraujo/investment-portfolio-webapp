@@ -9,6 +9,8 @@
         public string Negociacao {  get; set; }
         public int QuantidadeDisponivel { get; set; }
         public decimal Preco { get; set; }
+        public string EmailAdministrador { get; set; }
         public DateTime DataAlteracao { get; set; }
+        public DateTime DataVencimento { get; set; }
     }
 }

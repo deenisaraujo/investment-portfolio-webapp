@@ -11,7 +11,9 @@ namespace Investment.Portfolio.Core.Dto
         public string DS_NEGOCIACAO { get; set; }
         public int NR_QUANTIDADE_DISPONIVEL { get; set; }
         public decimal VL_PRECO { get; set; }
+        public string DS_EMAIL_ADMINISTRADOR { get; set; }
         public DateTime DT_ALTERACAO { get; set; }
+        public DateTime DT_VENCIMENTO { get; set; }
 
         public ProdutosModel toModel() =>
         new()
@@ -23,7 +25,9 @@ namespace Investment.Portfolio.Core.Dto
             Negociacao = DS_NEGOCIACAO,
             QuantidadeDisponivel = NR_QUANTIDADE_DISPONIVEL,
             Preco = VL_PRECO,
-            DataAlteracao = DT_ALTERACAO
+            EmailAdministrador = DS_EMAIL_ADMINISTRADOR,
+            DataAlteracao = DT_ALTERACAO,
+            DataVencimento = DT_VENCIMENTO
         };
     }
 }
