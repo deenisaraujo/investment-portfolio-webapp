@@ -5,7 +5,6 @@ using Investment.Portfolio.Core.Factory.Interface;
 using Investment.Portfolio.Core.Model;
 using Investment.Portfolio.Core.Repository.GestaoProdutos.Interface;
 using Investment.Portfolio.Core.Request;
-using Org.BouncyCastle.Asn1.Ocsp;
 using System.Net;
 
 namespace Investment.Portfolio.Core.Repository.GestaoProdutos
@@ -44,9 +43,9 @@ namespace Investment.Portfolio.Core.Repository.GestaoProdutos
                              $"'{request.EspecificacaoTitulo}', DS_NEGOCIACAO = " +
                              $"'{request.Negociacao}', NR_QUANTIDADE_DISPONIVEL = " +
                              $"{request.Quantidade}, VL_PRECO = " +
-                             $"{request.Preco}, DS_EMAIL_ADMINISTRADOR = " +
+                             $"{request.Preco.ToString().Replace(",",".")}, DS_EMAIL_ADMINISTRADOR = " +
                              $"'{request.EmailAdministrador}', DT_VENCIMENTO = " +
-                             $"'{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', DT_ALTERACAO = " +
+                             $"'{request.DataVencimento.ToString("yyyy-MM-dd HH:mm:ss")}', DT_ALTERACAO = " +
                              $"'{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}'" +
                              $" WHERE ID_PRODUTO = {request.IdProduto}";
                         }
@@ -60,7 +59,7 @@ namespace Investment.Portfolio.Core.Repository.GestaoProdutos
                 return await Task.FromResult(new StatusModel() { Status = HttpStatusCode.BadRequest, Mensagem = "Erro ao tentar alterar o produto: " + ex.Message });
             }
         }
-        public async Task<StatusModel> DeletarProduto(int codProduto)
+        public void DeletarProduto(int codProduto)
         {
             try
             {
@@ -70,14 +69,13 @@ namespace Investment.Portfolio.Core.Repository.GestaoProdutos
                     {
                         conn.Open();
                         cmd.CommandText = QueryDeletarProduto + $" WHERE ID_PRODUTO = {codProduto}";
-                        await conn.ExecuteAsync(cmd.CommandText);
+                        conn.ExecuteAsync(cmd.CommandText);
                     }
                 }
-                return await Task.FromResult(new StatusModel() { Status = HttpStatusCode.OK, Mensagem = "Exclusão efetuada com sucesso!" });
             }
             catch (Exception ex)
             {
-                return await Task.FromResult(new StatusModel() { Status = HttpStatusCode.BadRequest, Mensagem = "Erro ao tentar excluir o produto: " + ex.Message });
+                throw new Exception(ex.Message);
             }
         }
         public async Task<StatusModel> InserirProduto(ProdutoRequest request)
@@ -112,7 +110,7 @@ namespace Investment.Portfolio.Core.Repository.GestaoProdutos
                         conn.Open();
                         var strSQL = new List<string>(); 
                         if (idProduto > 0) strSQL.Add($"ID_PRODUTO = {idProduto}");
-                        if (!string.IsNullOrEmpty(produto)) strSQL.Add($"DS_ATIVO = '{produto}'");
+                        if (!string.IsNullOrEmpty(produto)) strSQL.Add($"DS_ATIVO LIKE '%{produto}%'");
 
                         cmd.CommandText = string.Concat(QueryListarProduto, strSQL.Count > 0 ? " WHERE " : string.Empty, string.Join(" OR ", strSQL));
                         var result = await conn.QueryAsync<ProdutosDto>(cmd.CommandText);
@@ -134,7 +132,7 @@ namespace Investment.Portfolio.Core.Repository.GestaoProdutos
                     using (var cmd = conn.CreateCommand())
                     {
                         conn.Open();
-                        cmd.CommandText = QueryProximoVencimento + $" WHERE DT_VENCIMENTO BETWEEN '{DateTime.Now.ToString("yyyy-MM-dd")}' AND '{DateTime.Now.AddDays(DiasParaVencer).ToString("yyyy-MM-dd")}'";
+                        cmd.CommandText = QueryProximoVencimento + $" WHERE NR_QUANTIDADE_DISPONIVEL > 0 AND DT_VENCIMENTO BETWEEN '{DateTime.Now.ToString("yyyy-MM-dd")}' AND '{DateTime.Now.AddDays(DiasParaVencer).ToString("yyyy-MM-dd")}'";
                         var result = await conn.QueryAsync<ProdutosDto>(cmd.CommandText);
                         return result.Select(x => x.toModel());
                     }

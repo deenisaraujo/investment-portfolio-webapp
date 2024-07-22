@@ -1,5 +1,4 @@
 ﻿using Investment.Portfolio.Core.Command.GestaoProdutos.Interface;
-using Investment.Portfolio.Core.Model;
 using Investment.Portfolio.Core.Repository.GestaoProdutos.Interface;
 
 namespace Investment.Portfolio.Core.Command.GestaoProdutos
@@ -11,6 +10,6 @@ namespace Investment.Portfolio.Core.Command.GestaoProdutos
         {
             _gestaoProdutosRepository = gestaoProdutosRepository;
         }
-        public Task<StatusModel> Executar(int codProduto) => _gestaoProdutosRepository.DeletarProduto(codProduto);
+        public void Executar(int codProduto) => _gestaoProdutosRepository.DeletarProduto(codProduto);
     }
 }

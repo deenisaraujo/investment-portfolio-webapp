@@ -21,9 +21,9 @@ namespace Investment.Portfolio.WebApp.Controllers
         /// <summary>
         /// Método responsável por listar a carteira do cliente.
         /// </summary>
-        public async Task<IActionResult> ListarCarteira(long cpfCnpj)
+        public async Task<IActionResult> ListarCarteira(long cpfCnpj, int idProduto)
         {
-            return Ok(await _listarCarteiraClienteCommand.Executar(cpfCnpj));
+            return Ok(await _listarCarteiraClienteCommand.Executar(cpfCnpj, idProduto));
         }
 
         /// <summary>

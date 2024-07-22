@@ -16,8 +16,8 @@ namespace Investment.Portfolio.Core.Dto
                 Ativo = DS_ATIVO,
                 TipoProduto = DS_TIPO_PRODUTO,
                 Quantidade = NR_QUANTIDADE,
-                Preco = VL_PRECO,
-                Posicao = VL_POSICAO
+                Preco = VL_PRECO.ToString().Replace(",",".").Replace(".",","),
+                Posicao = VL_POSICAO.ToString().Replace(",", ".").Replace(".", ",")
             };
     }
 }

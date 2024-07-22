@@ -1,6 +1,7 @@
 ﻿using Investment.Portfolio.Core.Enum;
 using Investment.Portfolio.Core.Facade.OperacoesCompraVenda.Interface;
 using Investment.Portfolio.Core.Model;
+using Investment.Portfolio.Core.Repository.CarteiraCliente.Interface;
 using Investment.Portfolio.Core.Repository.GestaoProdutos.Interface;
 using Investment.Portfolio.Core.Repository.OperacoesCompraVenda.Interface;
 using Investment.Portfolio.Core.Request;
@@ -12,10 +13,12 @@ namespace Investment.Portfolio.Core.Facade.OperacoesCompraVenda
     {
         public readonly IOperacoesCompraVendaRepository _operacoesCompraVendaRepository;
         public readonly IGestaoProdutosRepository _gestaoProdutosRepository;
-        public OperacoesCompraVendaFacade(IOperacoesCompraVendaRepository operacoesCompraVendaRepository, IGestaoProdutosRepository gestaoProdutosRepository)
+        private readonly ICarteiraClienteRepository _carteiraClienteRepository;
+        public OperacoesCompraVendaFacade(IOperacoesCompraVendaRepository operacoesCompraVendaRepository, IGestaoProdutosRepository gestaoProdutosRepository, ICarteiraClienteRepository carteiraClienteRepository)
         {
             _operacoesCompraVendaRepository = operacoesCompraVendaRepository;
             _gestaoProdutosRepository = gestaoProdutosRepository;
+            _carteiraClienteRepository = carteiraClienteRepository;
         }
         /// <summary>
         /// Método responsável por identificar e executar o tipo de operação (Compra, Venda) 
@@ -28,17 +31,34 @@ namespace Investment.Portfolio.Core.Facade.OperacoesCompraVenda
             //Consulta o produto
             var produto = _gestaoProdutosRepository.ListarProduto(request.IdProduto, null).Result.First();
 
+            var cliente = _carteiraClienteRepository.ListarCarteiraCliente(request.CpfCnpj, request.IdProduto).Result.First();
+
             //Verifica se há disponibilidade do produto
             switch (request.TipoOperacao)
             {
                 //Atualiza a quantidade disponível do produto para compra ou venda
                 case TipoOperacaoEnum.Compra:
-                    if (produto.QuantidadeDisponivel > 0 & request.Quantidade < produto.QuantidadeDisponivel)
+                    //Verifica se a quantidade disponíve do produto é maior do que deseja comprar
+                    if (produto.QuantidadeDisponivel > 0 & request.Quantidade <= produto.QuantidadeDisponivel)
+                    {
                         executado = _gestaoProdutosRepository.AlterarProduto(new ProdutoRequest() { IdProduto = request.IdProduto, Quantidade = produto.QuantidadeDisponivel - request.Quantidade, EhOrdem = true }).Result;
-                    break;
+                        break;
+                    }
+                    else
+                    {
+                        return Task.FromResult(new StatusModel() { Status = HttpStatusCode.BadRequest, Mensagem = $"Este produto possui apenas {produto.QuantidadeDisponivel} disponível para compra." });
+                    }
                 case TipoOperacaoEnum.Venda:
+                    //Verifica se o cliente tem a quantidade disponível para venda
+                    if (request.Quantidade <= cliente.Quantidade)
+                    {
                         executado = _gestaoProdutosRepository.AlterarProduto(new ProdutoRequest() { IdProduto = request.IdProduto, Quantidade = produto.QuantidadeDisponivel + request.Quantidade, EhOrdem = true }).Result;
-                    break;
+                        break;
+                    }
+                    else
+                    {
+                        return Task.FromResult(new StatusModel() { Status = HttpStatusCode.BadRequest, Mensagem = $"Você possui apenas {cliente.Quantidade} disponível deste produto para venda." });
+                    }
                 default:
                     return Task.FromResult(new StatusModel() { Status = HttpStatusCode.OK, Mensagem = "Não existe ordem de compra ou venda!" });
             }

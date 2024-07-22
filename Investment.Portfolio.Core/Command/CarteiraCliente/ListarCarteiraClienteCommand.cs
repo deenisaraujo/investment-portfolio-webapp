@@ -11,6 +11,6 @@ namespace Investment.Portfolio.Core.Command.CarteiraCliente
         {
             _carteiraClienteRepository = carteiraClienteRepository;
         }
-        public Task<IEnumerable<CarteiraModel>> Executar(long cpfCnpj) => _carteiraClienteRepository.ListarCarteiraCliente(cpfCnpj);
+        public Task<IEnumerable<CarteiraModel>> Executar(long cpfCnpj, int idProduto) => _carteiraClienteRepository.ListarCarteiraCliente(cpfCnpj, idProduto);
     }
 }

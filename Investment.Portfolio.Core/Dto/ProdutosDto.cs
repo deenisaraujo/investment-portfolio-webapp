@@ -26,8 +26,9 @@ namespace Investment.Portfolio.Core.Dto
             QuantidadeDisponivel = NR_QUANTIDADE_DISPONIVEL,
             Preco = VL_PRECO,
             EmailAdministrador = DS_EMAIL_ADMINISTRADOR,
-            DataAlteracao = DT_ALTERACAO,
-            DataVencimento = DT_VENCIMENTO
+            DataAlteracao = DT_ALTERACAO.ToString("dd/MM/yyyy"),
+            DataVencimento = DT_VENCIMENTO.ToString("yyyy-MM-dd"),
+            DataVencimentoFormatada = DT_VENCIMENTO.ToString("dd/MM/yyyy")
         };
     }
 }

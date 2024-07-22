@@ -20,7 +20,7 @@ namespace Investment.Portfolio.Core.Facade.GestaoProdutos
         public Task<StatusModel> InserirAlterarProduto(ProdutoRequest request)
         {
             //Verifica se já existe o produto para não cadastrar produto repetido
-            if (!_gestaoProdutosRepository.VerificaExisteProduto(request.Ativo))
+            if (!_gestaoProdutosRepository.VerificaExisteProduto(request.Ativo) || request.IdProduto != 0)
             {
                 if (request.IdProduto == 0)
                     //Insere o produto no banco

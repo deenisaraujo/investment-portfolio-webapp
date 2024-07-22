@@ -28,13 +28,18 @@ namespace Investment.Portfolio.WebApp.Controllers
         {
             return View();
         }
+        public IActionResult CadastrarEditarProduto()
+        {
+            return View();
+        }
 
         /// <summary>
         /// Método responsável por deletar os produtos do portfólio.
         /// </summary>
         public async Task<IActionResult> DeletarProduto(int codProduto)
         {
-            return Ok(await _deletarProdutoCommand.Executar(codProduto));
+            _deletarProdutoCommand.Executar(codProduto);
+            return Ok();
         }
 
         /// <summary>
@@ -49,7 +54,7 @@ namespace Investment.Portfolio.WebApp.Controllers
         /// <summary>
         /// Método responsável por inserir e alterar os produtos do portfólio.
         /// </summary>
-        public async Task<IActionResult> InserirAlterarProduto(ProdutoRequest request)
+        public async Task<IActionResult> InserirAlterarProduto([FromBody]ProdutoRequest request)
         {
             return Ok(await _inserirAlterarProdutoCommand.Executar(request));
         }

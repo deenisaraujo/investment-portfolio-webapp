@@ -1,8 +1,28 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿<div class="container-fluid" style="background:#fff">
+    <div class="w-100">
+        <div class="nav">
+            <div class="nav nav-tabs pt-5 col-12 col-lg-12 col-md-12" id="nav-tab" role="tablist">
+                <a class="nav-link-menu active" id="menuGestaoProdutos" onclick="onClickGestaoProdutos()" href="#gestaoProdutos"> Gestão de Produtos</a>
+                <a class="nav-link-menu" id="menuCarteira" onclick="onClickCarteira()" href="#carteira">Carteira</a>
+                <a class="nav-link-menu" id="menuExtrato" onclick="onClickExtrato()" href="#extrato">Extrato</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid" style="background:#fff">
+    <div class="w-100">
+        <div class="tab-content">
+            @await Html.PartialAsync("Partial/GestaoProdutos")
+            @await Html.PartialAsync("Partial/Carteira")
+            @await Html.PartialAsync("Partial/Extrato")
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <link rel="stylesheet" href="~/css/index.css" />
+    <script src="~/js/Views/index.js" charset="iso-8859-1" asp-append-version="true"></script>
+    <script src="~/js/Views/gestaoProdutos.js" asp-append-version="true"></script>
+    <script src="~/js/Views/carteira.js" asp-append-version="true"></script>
+    <script src="~/js/Views/extrato.js" asp-append-version="true"></script>
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>

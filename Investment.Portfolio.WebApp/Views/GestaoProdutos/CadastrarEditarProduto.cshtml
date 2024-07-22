@@ -1,0 +1,98 @@
+﻿<section class="px-4 py-5">
+    <div class="container-fluid">
+        <div class="row pb-5">
+            <div class="col-md-12">
+                <h1 class="header-title mb-5">Cadastrar e Editar Produto</h1>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label class="col-form-label-xl">Produto *</label>
+                        <input type="text" title="Informe o Produto" name="Produto" class="form-control form-control-xl" id="txtProduto">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label class="col-form-label-xl">Tipo Produto *</label>
+                        <input type="text" title="Informe o Tipo" name="Tipo" class="form-control form-control-xl" id="txtTipo">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label class="col-form-label-xl">Especificação do produto *</label>
+                        <input type="text" title="Informe a EspecProduto" name="EspecProduto" class="form-control form-control-xl" id="txtEspecProduto">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label class="col-form-label-xl">Negociação *</label>
+                        <input type="text" title="Informe a Negociação" name="Negociacao" class="form-control form-control-xl" id="txtNegociacao">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label class="col-form-label-xl">Quantidade *</label>
+                        <input type="text" title="Informe a Quantidade" name="Quantidade" class="form-control form-control-xl" id="txtQuantidade">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label class="col-form-label-xl">Preço *</label>
+                        <input type="text" title="Informe o Preço" name="Preco" class="form-control form-control-xl" id="txtPreco">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label class="col-form-label-xl">Email Administrador *</label>
+                        <input type="text" title="Informe o Email" name="Email" class="form-control form-control-xl" id="txtEmail">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label class="col-form-label-xl">Data Vencimento *</label>
+                        <input type="date" title="Informe o Vencimento" name="Vencimento" class="form-control form-control-xl" id="txtVencimento">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div id="divSucesso" name="divAlerta" class="h3 ml-5 alert alert-info text-secondary alert-dismissible fade show d-none" role="alert">
+                    <span id="msgSucesso"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div id="divErro" name="divAlerta" class="h3 ml-5 alert alert-danger alert-dismissible fade show d-none" role="alert">
+                    <span id="msgErro"></span>
+                </div>
+            </div>
+            <div class="row pt-5">
+                <div class="col-md-1 align-self-end pb-5">
+                    <a href="@Url.Action("Index","Home", new { Area = "Home"})" class="style-button">Voltar</a>
+                </div>
+                <div class="col-md-2 align-self-end pb-4">
+                    <button type="button" id="btnSalvar" class="style-button" style="background-color: #000!important;color:#fff!important;" title="Salvar" onclick="Salvar()"> Salvar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <script src="~/js/Views/cadastroProduto.js"></script>
+}
+

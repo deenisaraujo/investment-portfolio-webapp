@@ -5,7 +5,7 @@
         public string Ativo { get; set; }
         public string TipoProduto { get; set; }
         public int Quantidade { get; set; }
-        public decimal Preco { get; set; }
-        public decimal Posicao { get; set; }
+        public string Preco { get; set; }
+        public string Posicao { get; set; } 
     }
 }

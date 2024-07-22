@@ -1,0 +1,295 @@
+/* line 20, /app/source/stylesheets/shared/_mixins.scss */
+.fs-12 {
+    font-size: 1.2rem;
+    line-height: 1.6rem; }
+  
+  /* line 20, /app/source/stylesheets/shared/_mixins.scss */
+  .fs-15, .user-data__header {
+    font-size: 1.5rem;
+    line-height: 1.9rem; }
+  
+  /* line 20, /app/source/stylesheets/shared/_mixins.scss */
+  .fs-18 {
+    font-size: 1.8rem;
+    line-height: 2.2rem; }
+  
+  /* line 20, /app/source/stylesheets/shared/_mixins.scss */
+  .fs-20 {
+    font-size: 2rem;
+    line-height: 2.4rem; }
+  
+  /* line 20, /app/source/stylesheets/shared/_mixins.scss */
+  .fs-24 {
+    font-size: 2.4rem;
+    line-height: 2.8rem; }
+  
+  /* line 20, /app/source/stylesheets/shared/_mixins.scss */
+  .fs-28 {
+    font-size: 2.8rem;
+    line-height: 3.2rem; }
+
+.fs-29 {
+    font-size: 3.3rem;
+    line-height: 3.2rem;
+}
+  
+  /* line 20, /app/source/stylesheets/shared/_mixins.scss */
+  .fs-35 {
+    font-size: 3.5rem;
+    line-height: 3.9rem; }
+  
+  /* line 20, /app/source/stylesheets/shared/_mixins.scss */
+  .fs-44 {
+    font-size: 3.5rem;
+    line-height: 4.8rem; }
+  
+  /* line 20, /app/source/stylesheets/shared/_mixins.scss */
+  .fs-50 {
+    font-size: 5rem;
+    line-height: 5.4rem; }
+    
+  /* line 7, /app/source/stylesheets/pages/user-data/user-data.scss */
+  .breadcrumbs {
+    padding-left: 5rem; }
+  
+  /* line 14, /app/source/stylesheets/pages/user-data/user-data.scss */
+  .user-data__main {
+    padding: 0 5rem; }
+  /* line 19, /app/source/stylesheets/pages/user-data/user-data.scss */
+  .user-data__header {
+    margin-bottom: 4rem; }
+    @media only screen and (min-width: 1200px) {
+      /* line 19, /app/source/stylesheets/pages/user-data/user-data.scss */
+      .user-data__header {
+        margin-bottom: 8rem; } }
+    /* line 28, /app/source/stylesheets/pages/user-data/user-data.scss */
+    .user-data__header__title {
+      font-weight: 700;
+      font-size: 3.5rem;
+      line-height: 3.5rem;
+      margin-bottom: 2.5rem; }
+  /* line 37, /app/source/stylesheets/pages/user-data/user-data.scss */
+  .user-data__form__title {
+    font-size: 2.6rem;
+    color: #000;
+    letter-spacing: 0;
+    padding-bottom: 1.5rem;
+    margin-bottom: 8rem;
+    border-bottom: solid 0.2rem #000; }
+  /* line 46, /app/source/stylesheets/pages/user-data/user-data.scss */
+  .user-data__form__subtitle {
+    position: absolute;
+    width: 21rem;
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #000;
+    padding-top: 1rem; }
+    @media only screen and (max-width: 1200px) {
+      /* line 46, /app/source/stylesheets/pages/user-data/user-data.scss */
+      .user-data__form__subtitle {
+        position: relative;
+        padding-bottom: 2rem;
+        width: 30rem; } }
+  /* line 61, /app/source/stylesheets/pages/user-data/user-data.scss */
+  .user-data__form__row {
+    width: calc(100% - 250px);
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: row;
+        flex-direction: row;
+    -ms-flex-pack: start;
+        justify-content: flex-start;
+    -ms-flex-align: stretch;
+        align-items: stretch;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+    border-bottom: solid 0.1rem #ced5d6;
+    margin-bottom: 6.5rem;
+    padding-bottom: 3rem; }
+    @media only screen and (max-width: 1200px) {
+      /* line 61, /app/source/stylesheets/pages/user-data/user-data.scss */
+      .user-data__form__row {
+        width: 100%; } }
+    @media only screen and (min-width: 1200px) {
+      /* line 61, /app/source/stylesheets/pages/user-data/user-data.scss */
+      .user-data__form__row {
+        min-width: 108rem; } }
+    @media only screen and (min-width: 1201px) {
+      /* line 61, /app/source/stylesheets/pages/user-data/user-data.scss */
+      .user-data__form__row {
+        padding-left: 21rem; } }
+    /* line 84, /app/source/stylesheets/pages/user-data/user-data.scss */
+    .user-data__form__row--no-border {
+      border: none; }
+    /* line 88, /app/source/stylesheets/pages/user-data/user-data.scss */
+    .user-data__form__row--no-margin-bottom {
+      margin-bottom: 0; }
+    /* line 92, /app/source/stylesheets/pages/user-data/user-data.scss */
+    .user-data__form__row .buttons {
+      width: 100%; }
+      @media only screen and (max-width: 1201px) {
+        /* line 92, /app/source/stylesheets/pages/user-data/user-data.scss */
+        .user-data__form__row .buttons {
+          margin-top: 0; } }
+      /* line 99, /app/source/stylesheets/pages/user-data/user-data.scss */
+      .user-data__form__row .buttons--remove-nif {
+        margin-left: -18rem; }
+      /* line 103, /app/source/stylesheets/pages/user-data/user-data.scss */
+      .user-data__form__row .buttons .js-add-account {
+        max-width: 13rem; }
+        @media only screen and (max-width: 1200px) {
+          /* line 103, /app/source/stylesheets/pages/user-data/user-data.scss */
+          .user-data__form__row .buttons .js-add-account {
+            max-width: 16rem; } }
+    /* line 111, /app/source/stylesheets/pages/user-data/user-data.scss */
+    .user-data__form__row .table__icon--help {
+      display: inline-block;
+      top: 0.2rem;
+      margin-left: 0.5rem; }
+    /* line 117, /app/source/stylesheets/pages/user-data/user-data.scss */
+    .user-data__form__row .form-group {
+      min-height: 12rem;
+      width: 27rem;
+      position: relative; }
+      /* line 122, /app/source/stylesheets/pages/user-data/user-data.scss */
+      .user-data__form__row .form-group > label:not([class*='custom']) {
+        display: block;
+        font-size: 1.3rem;
+        color: #3b575b;
+        line-height: 3.5rem; }
+      /* line 129, /app/source/stylesheets/pages/user-data/user-data.scss */
+      .user-data__form__row .form-group > label.custom-checkbox {
+        margin-top: 0.8rem;
+        font-size: 1.3rem;
+        padding-right: 2rem; }
+      /* line 135, /app/source/stylesheets/pages/user-data/user-data.scss */
+      .user-data__form__row .form-group > label.custom-checkbox--inline {
+        display: -ms-inline-flexbox;
+        display: inline-flex; }
+      /* line 138, /app/source/stylesheets/pages/user-data/user-data.scss */
+      .user-data__form__row .form-group .input {
+        font-size: 2.0rem;
+        line-height: 3.8rem;
+        width: 97%; }
+        /* line 143, /app/source/stylesheets/pages/user-data/user-data.scss */
+        .user-data__form__row .form-group .input[disabled] {
+          opacity: 0.3; }
+        /* line 147, /app/source/stylesheets/pages/user-data/user-data.scss */
+        .user-data__form__row .form-group .input--label {
+          position: absolute;
+          left: 0;
+          padding-left: 1rem;
+          line-height: 5rem; }
+        /* line 153, /app/source/stylesheets/pages/user-data/user-data.scss */
+        .user-data__form__row .form-group .input--money {
+          text-indent: 1.8rem; }
+          @media only screen and (max-width: 1200px) {
+            /* line 153, /app/source/stylesheets/pages/user-data/user-data.scss */
+            .user-data__form__row .form-group .input--money {
+              text-indent: 2rem; } }
+      /* line 161, /app/source/stylesheets/pages/user-data/user-data.scss */
+      .user-data__form__row .form-group--agency {
+        width: 15rem; }
+      /* line 165, /app/source/stylesheets/pages/user-data/user-data.scss */
+      .user-data__form__row .form-group--account {
+        width: 17rem; }
+      /* line 168, /app/source/stylesheets/pages/user-data/user-data.scss */
+      .user-data__form__row .form-group--digit {
+        width: 10rem; }
+      /* line 171, /app/source/stylesheets/pages/user-data/user-data.scss */
+      .user-data__form__row .form-group .financial-data-agency {
+        width: 8rem; }
+      /* line 174, /app/source/stylesheets/pages/user-data/user-data.scss */
+      .user-data__form__row .form-group .financial-data-account-number {
+        width: 10rem; }
+      /* line 177, /app/source/stylesheets/pages/user-data/user-data.scss */
+      .user-data__form__row .form-group .financial-data-account-digit {
+        width: 3rem; }
+      /* line 181, /app/source/stylesheets/pages/user-data/user-data.scss */
+      .user-data__form__row .form-group .combo {
+        width: 24rem; }
+        /* line 184, /app/source/stylesheets/pages/user-data/user-data.scss */
+        .user-data__form__row .form-group .combo__list {
+          height: auto; }
+      /* line 189, /app/source/stylesheets/pages/user-data/user-data.scss */
+      .user-data__form__row .form-group .error-message {
+        color: #e37a7a;
+        font-size: 1.3rem;
+        margin-top: 0.5rem;
+        display: none; }
+      /* line 198, /app/source/stylesheets/pages/user-data/user-data.scss */
+      .user-data__form__row .form-group[data-error] > label {
+        color: #e37a7a; }
+      /* line 201, /app/source/stylesheets/pages/user-data/user-data.scss */
+      .user-data__form__row .form-group[data-error] .input {
+        border: solid 1px #e37a7a;
+        color: #e37a7a;
+        background-color: #fef2f5; }
+      /* line 206, /app/source/stylesheets/pages/user-data/user-data.scss */
+      .user-data__form__row .form-group[data-error] .error-message {
+        display: inline-block; }
+      /* line 211, /app/source/stylesheets/pages/user-data/user-data.scss */
+      .user-data__form__row .form-group--tipo-vinculo {
+        width: 58rem;
+        margin-right: 3rem; }
+        /* line 215, /app/source/stylesheets/pages/user-data/user-data.scss */
+        .user-data__form__row .form-group--tipo-vinculo .combo {
+          width: 57rem;
+          max-width: 57rem; }
+      /* line 222, /app/source/stylesheets/pages/user-data/user-data.scss */
+      .user-data__form__row .form-group--security-number > label {
+        float: left; }
+      /* line 225, /app/source/stylesheets/pages/user-data/user-data.scss */
+      .user-data__form__row .form-group--security-number .ico {
+        margin-top: 0.8rem;
+        margin-left: 1.2rem; }
+      /* line 231, /app/source/stylesheets/pages/user-data/user-data.scss */
+      .user-data__form__row .form-group--offset-1 {
+        margin-right: 27rem; }
+      /* line 234, /app/source/stylesheets/pages/user-data/user-data.scss */
+      .user-data__form__row .form-group--offset-2 {
+        margin-right: 54rem; }
+      @media only screen and (min-width: 768px) {
+        /* line 238, /app/source/stylesheets/pages/user-data/user-data.scss */
+        .user-data__form__row .form-group--medium {
+          width: 54rem; }
+          /* line 242, /app/source/stylesheets/pages/user-data/user-data.scss */
+          .user-data__form__row .form-group--medium .input {
+            width: 48rem;
+            max-width: 48rem; } }
+      @media only screen and (min-width: 768px) {
+        /* line 248, /app/source/stylesheets/pages/user-data/user-data.scss */
+        .user-data__form__row .form-group--big {
+          width: 81rem; }
+          /* line 252, /app/source/stylesheets/pages/user-data/user-data.scss */
+          .user-data__form__row .form-group--big .input {
+            width: 48rem;
+            max-width: 48rem; } }
+      /* line 259, /app/source/stylesheets/pages/user-data/user-data.scss */
+      .user-data__form__row .form-group--checkbox > label.custom-checkbox {
+        margin-top: 4.5rem; }
+  @media only screen and (min-width: 1200px) {
+    /* line 268, /app/source/stylesheets/pages/user-data/user-data.scss */
+    .user-data__form-account .buttons {
+      max-width: 93.2rem; } }
+  
+  /* line 276, /app/source/stylesheets/pages/user-data/user-data.scss */
+  .custom-radio-group__title i,
+  .custom-radio i {
+    border: 0.1rem solid #b4b3b8; }
+  
+  /* line 281, /app/source/stylesheets/pages/user-data/user-data.scss */
+  .tippy-popper[x-placement^='right'] .tippy-tooltip:before {
+    top: 4.1rem; }
+  
+  /* line 284, /app/source/stylesheets/pages/user-data/user-data.scss */
+  .tippy-tooltip.image-theme {
+    background-color: #e6e6e6; }
+  
+  /* line 288, /app/source/stylesheets/pages/user-data/user-data.scss */
+  .tippy-popper[x-placement^='right'] .tippy-tooltip.image-theme:before {
+    display: none; }
+  
+  /* line 292, /app/source/stylesheets/pages/user-data/user-data.scss */
+  .tippy-popper[x-placement^='top'] .tippy-tooltip .tippy-arrow {
+    display: none; }

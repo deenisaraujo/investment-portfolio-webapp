@@ -20,7 +20,7 @@ namespace Investment.Portfolio.WebApp.Controllers
         /// <summary>
         /// Método responsável por efetuar compra e venda de produto e atualizar carteira do cliente.
         /// </summary>
-        public async Task<IActionResult> CompraVendaProduto(OrdemRequest request)
+        public async Task<IActionResult> CompraVendaProduto([FromBody] OrdemRequest request)
         {
             return Ok(await _operacaoCompraVendaCommand.Executar(request));
         }

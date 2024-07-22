@@ -36,7 +36,7 @@ namespace Investment.Portfolio.Core.Facade.Email
 
                 //Substitui as palavras dinâmicas do email pelas fornecidas no request
                 request.Html = request.Html.Replace("{$PRODUTO}", proximoVencimento[i].Ativo);
-                request.Html = request.Html.Replace("{$VENCIMENTO}", proximoVencimento[i].DataVencimento.ToString("dd/MM/yyyy"));
+                request.Html = request.Html.Replace("{$VENCIMENTO}", proximoVencimento[i].DataVencimentoFormatada);
                 request.EmailDestinatario = proximoVencimento[i].EmailAdministrador;
 
                 //Dispara o email

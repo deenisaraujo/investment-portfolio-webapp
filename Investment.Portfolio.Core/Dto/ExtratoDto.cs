@@ -28,9 +28,9 @@ namespace Investment.Portfolio.Core.Dto
                  TipoOperacao = DS_TIPO_OPERACAO,
                  EspecificacaoTitulo = DS_ESPECIFICACAO_TITULO,
                  Quantidade = NR_QUANTIDADE,
-                 Preco = VL_PRECO,
-                 ValorOperacao = VL_OPERACAO,
-                 DataOperacao = DT_OPERACAO
+                 Preco = VL_PRECO.ToString().Replace(".", ","),
+                 ValorOperacao = VL_OPERACAO.ToString().Replace(".",","),
+                 DataOperacao = DT_OPERACAO.ToString("dd/MM/yyyy")
              };
     }
 }

@@ -1,0 +1,47 @@
+﻿<div class="d-none" id="idCarteira">
+    <section>
+        <div class="row">
+            <div class="col-md-7">
+                <h2 class="header-title mt-5">
+                    Carteira de Produtos
+                </h2>
+            </div>
+        </div>
+        <div>
+            <div class="row">
+                <div class="col-md-3 mt-2">
+                    <div class="form-group">
+                        <label class="col-form-label-xl">Cpf ou Cnpj</label>
+                        <input type="text" id="idCpfCnpj" name="txtNomeProd" place title="preencha o seu cpf ou cnpj">
+                    </div>
+                </div>
+                <div class="col-md-1 mt-5 pt-5">
+                    <div class="col-md-1 align-self-end">
+                        <a href="#" class="style-button" style="padding: 6px 33px !important;background-color: #000!important;color:#fff!important;" onclick="Buscar()">Buscar</a>
+                    </div>
+                </div>
+                <div class="col-md-5 mt-5 pt-4">
+                    <div class="col-md-3 align-self-end">
+                        <a href="#" class="style-button" style="padding: 6px 33px !important;background-color: #fff!important;color:#000!important;width: 194%!important;display: block;margin-top: 7%;" onclick="CompraVenda()">Comprar e Vender</a>
+                    </div>
+                </div>
+            </div>
+            <div class="row d-none" id="idGridCarteira">
+                <div class="container-fluid table-overflow">
+                    <table id="tbCarteiraProduto" class="x-table x-table--buy w-100" aria-describedby="titleScreen" style="margin-top: 55px!important;">
+                        <thead>
+                            <tr class="x-table-light">
+                                <th class="x-table__title">Ativo</th>
+                                <th class="x-table__title">Tipo Produto</th>
+                                <th class="x-table__title">Quantidade</th>
+                                <th class="x-table__title">Preço</th>
+                                <th class="x-table__title">Posição</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<partial name="~/Views/Shared/_ModalNegociacao.cshtml" />

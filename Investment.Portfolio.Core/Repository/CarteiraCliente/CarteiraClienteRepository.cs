@@ -17,7 +17,7 @@ namespace Investment.Portfolio.Core.Repository.CarteiraCliente
             _factory = factory;
         }
 
-        public async Task<IEnumerable<CarteiraModel>> ListarCarteiraCliente(long cpfCnpj)
+        public async Task<IEnumerable<CarteiraModel>> ListarCarteiraCliente(long cpfCnpj, int idProduto)
         {
             try
             {
@@ -26,7 +26,10 @@ namespace Investment.Portfolio.Core.Repository.CarteiraCliente
                     using (var cmd = conn.CreateCommand())
                     {
                         conn.Open();
-                        cmd.CommandText = QueryListarCarteira + $" WHERE NR_CPF_CNPJ = {cpfCnpj} GROUP BY DS_ATIVO, DS_TIPO_PRODUTO,VL_PRECO ORDER BY DS_ATIVO;";
+                        if (idProduto == 0)
+                            cmd.CommandText = QueryListarCarteira + $" WHERE NR_CPF_CNPJ = {cpfCnpj} GROUP BY DS_ATIVO, DS_TIPO_PRODUTO,VL_PRECO ORDER BY DS_ATIVO;";
+                        else
+                            cmd.CommandText = QueryListarCarteira + $" WHERE NR_CPF_CNPJ = {cpfCnpj} AND ID_PRODUTO = {idProduto} GROUP BY DS_ATIVO, DS_TIPO_PRODUTO,VL_PRECO ORDER BY DS_ATIVO;";
                         var result = await conn.QueryAsync<CarteiraDto>(cmd.CommandText);
                         return result.Select(x => x.toModel());
                     }

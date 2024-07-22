@@ -20,3 +20,159 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.table-overflow {
+    max-height: 100%;
+    overflow-y: auto;
+}
+
+.pagination-select {
+    position: relative;
+    font-family: sans-serif;
+    height: 43px;
+    float: left;
+    border: 1px solid #dee2e6;
+    margin-right: 10px;
+    font-size: 14px;
+    width: 156px !important;
+    top: 51px;
+    height: 48px;
+}
+
+.pagination {
+    justify-content: left !important;
+    margin-left: 122px !important;
+}
+
+    /* CUSTOMIZAÇÃO DA PAGINAÇÃO */
+    .pagination > li > a,
+    .pagination > li > span {
+        position: relative;
+        float: left;
+        padding: 6px 12px;
+        margin-left: 0;
+        margin-right: 10px;
+        line-height: 1.42857143;
+        font-size: 12px;
+        font-weight: 700;
+        color: #494b5c;
+        text-decoration: none;
+        background-color: #f7f7f7;
+        border: 1px solid #e7e7e7;
+        border-radius: 0px !important;
+    }
+
+        .pagination > li > a:hover,
+        .pagination > li > span:hover {
+            opacity: 0.5;
+            color: #13383D;
+            outline: none;
+        }
+
+    .pagination > .active > a,
+    .pagination > .active > span,
+    .pagination > .active > a:hover,
+    .pagination > .active > span:hover {
+        z-index: 0;
+        color: #fff;
+        cursor: default;
+        background: #13383D;
+        border-color: #13383D;
+        box-shadow: none;
+        outline: none;
+        border-radius: 0px !important;
+        margin-right: 10px;
+    }
+
+        .pagination > .active > a:focus,
+        .pagination > .active > span:focus {
+            z-index: 0;
+            box-shadow: none;
+            background: #13383D;
+            border-color: #13383D;
+            outline: none;
+        }
+
+    .pagination > .disabled > span,
+    .pagination > .disabled > span:hover,
+    .pagination > .disabled > span:focus,
+    .pagination > .disabled > a,
+    .pagination > .disabled > a:hover,
+    .pagination > .disabled > a:focus {
+        color: #777777;
+        cursor: not-allowed;
+        background-color: #f7f7f7;
+        border-color: #e7e7e7;
+        border-radius: 0px !important;
+        opacity: 0.5;
+        box-shadow: none;
+    }
+
+    .pagination > li:first-child > a:focus, .pagination > li:first-child > span:focus {
+        outline: none;
+    }
+
+.page-item.active .page-link {
+    background-color: #000 !important;
+    border: 0px;
+    height: 118%;
+    padding: 0.75rem 1.5rem;
+    padding-top: 13px;
+}
+
+.row.user-data__form__row {
+    width: 100%;
+}
+
+form-group.segunda-linha {
+    padding-top: 1.8%;
+    width: 21.4%;
+}
+
+.header-title {
+    text-align: left;
+    font-family: sans-serif;
+    font-size: 3rem;
+    letter-spacing: 0px;
+    color: #000;
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.style-button {
+    padding: 16px 33px !important;
+    border-radius: 30px;
+    font-size: 14px;
+    font-family: sans-serif;
+    cursor: pointer;
+    text-decoration: none !important;
+    background-color: rgba(0, 0, 0, 0) !important;
+    border: 2px solid #000 !important;
+    color: #000 !important;
+    left: 50%;
+    position: relative;
+}
+
+.form-group {
+    display: flex !important;
+    margin: 1.6rem -3rem 2rem 0rem !important;
+    flex-direction: column !important;
+    justify-content: flex-start !important;
+    word-break: break-all;
+}
+
+.form-group input {
+    border: none;
+    border-bottom: 1.5px solid #a7a8ac;
+    width: 100% !important;
+    display: block;
+    font-size: 1.6rem;
+}
+
+.textModal {
+    text-align: center;
+    font-size: 14px;
+    font-weight: 600;
+    color: #47484C;
+}
