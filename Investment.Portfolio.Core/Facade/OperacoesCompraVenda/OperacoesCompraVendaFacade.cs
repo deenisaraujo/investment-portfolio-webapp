@@ -31,8 +31,12 @@ namespace Investment.Portfolio.Core.Facade.OperacoesCompraVenda
             //Consulta o produto
             var produto = _gestaoProdutosRepository.ListarProduto(request.IdProduto, null).Result.First();
 
-            var cliente = _carteiraClienteRepository.ListarCarteiraCliente(request.CpfCnpj, request.IdProduto).Result.First();
+            var cliente = _carteiraClienteRepository.ListarCarteiraCliente(request.CpfCnpj, request.IdProduto).Result;
 
+            //Verifica se existe algum produto para venda
+            if (cliente.Count().Equals(0) & request.TipoOperacao.Equals(TipoOperacaoEnum.Venda)) 
+                return Task.FromResult(new StatusModel() { Status = HttpStatusCode.BadRequest, Mensagem = "Não há produto para venda!" });
+            
             //Verifica se há disponibilidade do produto
             switch (request.TipoOperacao)
             {
@@ -50,14 +54,14 @@ namespace Investment.Portfolio.Core.Facade.OperacoesCompraVenda
                     }
                 case TipoOperacaoEnum.Venda:
                     //Verifica se o cliente tem a quantidade disponível para venda
-                    if (request.Quantidade <= cliente.Quantidade)
+                    if (request.Quantidade <= cliente.First().Quantidade)
                     {
                         executado = _gestaoProdutosRepository.AlterarProduto(new ProdutoRequest() { IdProduto = request.IdProduto, Quantidade = produto.QuantidadeDisponivel + request.Quantidade, EhOrdem = true }).Result;
                         break;
                     }
                     else
                     {
-                        return Task.FromResult(new StatusModel() { Status = HttpStatusCode.BadRequest, Mensagem = $"Você possui apenas {cliente.Quantidade} disponível deste produto para venda." });
+                        return Task.FromResult(new StatusModel() { Status = HttpStatusCode.BadRequest, Mensagem = $"Você possui apenas {cliente.First().Quantidade} disponível deste produto para venda." });
                     }
                 default:
                     return Task.FromResult(new StatusModel() { Status = HttpStatusCode.OK, Mensagem = "Não existe ordem de compra ou venda!" });

@@ -23,15 +23,16 @@ namespace Investment.Portfolio.WebApp.Controllers
         /// </summary>
         public async Task<IActionResult> ListarCarteira(long cpfCnpj, int idProduto)
         {
-            return Ok(await _listarCarteiraClienteCommand.Executar(cpfCnpj, idProduto));
+            var list = await _listarCarteiraClienteCommand.Executar(cpfCnpj, idProduto);
+            return Ok(list.Where(x => x.Quantidade > 0).ToList());
         }
 
         /// <summary>
         /// Método responsável por listar a carteira do cliente.
         /// </summary>
-        public async Task<IActionResult>CarregarExtrato(DateTime dataExtrato)
+        public async Task<IActionResult>CarregarExtrato(long cpfCnpj, DateTime dataExtrato)
         {
-            return Ok(await _carregarExtratoCommand.Executar(dataExtrato));
+            return Ok(await _carregarExtratoCommand.Executar(cpfCnpj, dataExtrato));
         }
     }
 }

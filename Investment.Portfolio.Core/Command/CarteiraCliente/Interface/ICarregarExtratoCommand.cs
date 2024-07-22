@@ -3,6 +3,6 @@ namespace Investment.Portfolio.Core.Command.CarteiraCliente.Interface
 {
     public interface ICarregarExtratoCommand
     {
-        Task<IEnumerable<ExtratoModel>> Executar(DateTime dataExtrato);
+        Task<IEnumerable<ExtratoModel>> Executar(long cpfCnpj, DateTime dataExtrato);
     }
 }

@@ -45,7 +45,7 @@ namespace Investment.Portfolio.WebApp.Controllers
         /// <summary>
         /// Método responsável por enviar email aos administradores sobre o vencimento próximo dos produtos.
         /// </summary>
-        public async Task<IActionResult> EnvioEmail(long cpfCnpj)
+        public async Task<IActionResult> EnvioEmail()
         {
             var conta = _configuration.GetSection("DadosEmail").Get<EmailRequest>();
             return Ok(await _enviarEmailCommand.Executar(conta));

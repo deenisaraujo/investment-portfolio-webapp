@@ -9,7 +9,7 @@ namespace Investment.Portfolio.Core.Model
         public string Ativo { get; set; }
         public string TipoProduto { get; set; }
         public string Negociacao { get; set; }
-        public TipoOperacaoEnum TipoOperacao { get; set; }
+        public string TipoOperacao { get; set; }
         public string EspecificacaoTitulo { get; set; }
         public int Quantidade { get; set; }
         public string Preco { get; set; }

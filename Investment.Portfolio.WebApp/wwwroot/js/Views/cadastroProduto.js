@@ -26,7 +26,7 @@ var CadastrarEditarProduto = function () {
         $("#txtEspecProduto").val(result[0].especificacaoTitulo);
         $("#txtNegociacao").val(result[0].negociacao);
         $("#txtQuantidade").val(result[0].quantidadeDisponivel);
-        $("#txtPreco").val(result[0].preco);
+        $("#txtPreco").val(result[0].preco.toString().replace('.', ','));
         $("#txtEmail").val(result[0].emailAdministrador);
         $("#txtVencimento").val(result[0].dataVencimento);
     }
@@ -38,7 +38,7 @@ var CadastrarEditarProduto = function () {
             EspecificacaoTitulo: $("#txtEspecProduto").val(),
             Negociacao: $("#txtNegociacao").val(),
             Quantidade: $("#txtQuantidade").val(),
-            Preco: $("#txtPreco").val(),
+            Preco: $("#txtPreco").val().toString().replace(',', '.'),
             EmailAdministrador: $("#txtEmail").val(),
             DataVencimento: $("#txtVencimento").val()
         }

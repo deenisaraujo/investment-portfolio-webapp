@@ -25,7 +25,7 @@ namespace Investment.Portfolio.Core.Dto
                  Ativo = DS_ATIVO,
                  TipoProduto = DS_TIPO_PRODUTO,
                  Negociacao = DS_NEGOCIACAO,
-                 TipoOperacao = DS_TIPO_OPERACAO,
+                 TipoOperacao = DS_TIPO_OPERACAO.ToString(),
                  EspecificacaoTitulo = DS_ESPECIFICACAO_TITULO,
                  Quantidade = NR_QUANTIDADE,
                  Preco = VL_PRECO.ToString().Replace(".", ","),

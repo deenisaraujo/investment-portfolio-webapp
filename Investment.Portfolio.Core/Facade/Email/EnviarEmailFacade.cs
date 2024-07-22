@@ -22,7 +22,7 @@ namespace Investment.Portfolio.Core.Facade.Email
 
             //Lista os produtos que estão próximos do vencimento
             var proximoVencimento = _gestaoProdutosRepository.ListarProdutoProximoVencimento(request.DiasParaVencer).Result.ToList();
-
+            if(proximoVencimento.Count().Equals(0))return Task.FromResult(new StatusModel() { Status = HttpStatusCode.OK, Mensagem = $"Não há nenhum produto para vencer nos próximos {request.DiasParaVencer} dias!" });
             for (int i = 0; i < proximoVencimento.Count; i++)
             {
                 //Atribui o diretório do template do email a váriavel

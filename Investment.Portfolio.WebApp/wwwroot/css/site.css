@@ -120,6 +120,7 @@ body {
     padding-top: 13px;
 }
 
+
 .row.user-data__form__row {
     width: 100%;
 }
@@ -175,4 +176,19 @@ form-group.segunda-linha {
     font-size: 14px;
     font-weight: 600;
     color: #47484C;
+}
+
+.c-loader {
+    animation: is-rotating 1s infinite;
+    border: 6px solid #e5e5e5;
+    border-radius: 50%;
+    border-top-color: #51d4db;
+    height: 38px;
+    width: 38px;
+}
+
+@keyframes is-rotating {
+    to {
+        transform: rotate(1turn);
+    }
 }

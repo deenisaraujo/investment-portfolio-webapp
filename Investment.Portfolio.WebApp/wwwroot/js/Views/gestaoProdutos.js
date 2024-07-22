@@ -1,5 +1,6 @@
 ﻿$(document).ready(function () {
     var produtos = new Produtos;
+    /*produtos.enviarEmailVencimento();*/
     produtos.loadGrid();
 });
 
@@ -7,14 +8,27 @@ var tableProdutos = null;
 
 var Produtos = function () {
     var me = this;
+
+    me.enviarEmailVencimento = function () {
+        util.ajax.post(`../GestaoProdutos/EnvioEmail`, null, me.callSucessEmail, me.callBackError);
+    }
     me.loadGrid = function () {
         util.ajax.post(`../GestaoProdutos/ListarProdutos`, null, me.callBackSuccess, me.callBackError);
     }
     me.callBackSuccess = function (data) {
         me.montarGrid(data);
     }
-    me.callBackError = function (error) {
-        console.log(error);
+    me.callSucessEmail = function (result) {
+        $("#idEnviarEmail").prop('disabled', false);
+        $("#c-loader").addClass('d-none');
+        alert(result.mensagem);
+    }
+    me.callSucessExcluir = function () {
+        UtilModal.close();
+        window.location.href = `../Home/Index`;
+    }
+    me.callBackError = function (result) {
+        console.log(result.mensagem);
     }
     me.montarGrid = function (result) {
         $('#divListaInexistente').addClass('d-none');
@@ -94,29 +108,41 @@ var Produtos = function () {
        var produto=$('#idNomeProduto').val();
         util.ajax.post(`../GestaoProdutos/ListarProdutos?produto=${produto}`, null, me.callBackSuccess, me.callBackError);
     }
+    me.excluir = function (id) {
+        util.ajax.post(`../GestaoProdutos/DeletarProduto?codProduto=${id}`, null, me.callSucessExcluir, me.callBackError);
+    }
 }
-function Buscar() {
+function BuscarListaProduto() {
     var produtos = new Produtos;
     produtos.pesquisar();
 };
 function ExcluirProduto(id) {
-    var html = `
+    var htmlExcluir = `
                         <div class="d-flex justify-content-evenly">
                             <p class="h4">Deseja continuar com a exclusão?</p>
                         </div>
+                        <div class="modal-footer">
+                        <button type="button" class="mx-4" id="modalBtnConfirmar" onclick="ConfirmaExclusao(${id})" style="font-size: 12px;">Confirmar</button>
+                <button type="button" id="modalBtnCancelar"  data-dismiss="modal" style="font-size: 12px;">Voltar</button>
+                </div>
                     `;
-
-    UtilModal.trocarNomeBtnConfirmar("Confirmar");
 
     UtilModal.open(
         "Exclusão",
-        html,
+        htmlExcluir,
         () => {
-            UtilModal.esconderReturn();
-            UtilModal.esconderErro();
-
-            util.ajax.post(`../GestaoProdutos/DeletarProduto?codProduto=${id}`, null, (response) => { UtilModal.setReturn("Exclusão realizada com sucesso."); UtilModal.mostrarReturn(); window.location.reload() }, (response) => { UtilModal.setError(response); UtilModal.mostrarErro(); });
-
+            AgoraModal.esconderReturn();
+            AgoraModal.esconderErro();
         }, true, true
     );
+};
+function ConfirmaExclusao(id) {
+    var produtos = new Produtos;
+    produtos.excluir(id);
+};
+function EnviarEmail() {
+    $("#idEnviarEmail").prop('disabled', true);
+    $("#c-loader").removeClass('d-none');
+    var produtos = new Produtos;
+    produtos.enviarEmailVencimento();
 };

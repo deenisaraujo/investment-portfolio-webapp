@@ -6,7 +6,6 @@ using Dapper;
 using Investment.Portfolio.Core.Dto;
 using System.Net;
 using Investment.Portfolio.Core.Request;
-using Org.BouncyCastle.Asn1.Ocsp;
 
 namespace Investment.Portfolio.Core.Repository.OperacoesCompraVenda
 {
@@ -29,7 +28,7 @@ namespace Investment.Portfolio.Core.Repository.OperacoesCompraVenda
                     using (var cmd = conn.CreateCommand())
                     {
                         conn.Open();
-                        cmd.CommandText = QueryCompraVenda + $" VALUES({produto.IdProduto},{ordem.CpfCnpj},'{produto.Ativo}', '{produto.TipoProduto}', '{produto.Negociacao}', '{ordem.TipoOperacao}', '{produto.EspecificacaoTitulo}', {ordem.Quantidade}, {produto.Preco.ToString().Replace(",", ".")}, {(produto.Preco * ordem.Quantidade).ToString().Replace(",", ".")}, '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}')";
+                        cmd.CommandText = QueryCompraVenda + $" VALUES({produto.IdProduto},{ordem.CpfCnpj},'{produto.Ativo}', '{produto.TipoProduto}', '{produto.Negociacao}', '{ordem.TipoOperacao}', '{produto.EspecificacaoTitulo}', {ordem.Quantidade}, {produto.Preco.ToString().Replace(",", ".")}, {(produto.Preco * ordem.Quantidade).ToString().Replace(",", ".")}, '{DateTime.Now.ToString("yyyy-MM-dd")}')";
                         await conn.ExecuteAsync(cmd.CommandText);
                     }
                 }
@@ -41,7 +40,7 @@ namespace Investment.Portfolio.Core.Repository.OperacoesCompraVenda
             }
         }
 
-        public async Task<IEnumerable<ExtratoModel>>CarregarExtrato(DateTime dataExtrato)
+        public async Task<IEnumerable<ExtratoModel>> CarregarExtrato(long cpfCnpj, DateTime dataExtrato)
         {
             try
             {
@@ -50,10 +49,15 @@ namespace Investment.Portfolio.Core.Repository.OperacoesCompraVenda
                     using (var cmd = conn.CreateCommand())
                     {
                         conn.Open();
-                        if (!dataExtrato.Equals(null) && dataExtrato.ToString() != "01/01/0001 00:00:00")
-                            cmd.CommandText = QueryExtrato + $" WHERE DT_OPERACAO = '{dataExtrato.ToString("yyyy-MM-dd")}'";
-                        else
-                            cmd.CommandText = QueryExtrato ;
+                        var strSQL = new List<string>();
+                        if (cpfCnpj > 0) strSQL.Add($"NR_CPF_CNPJ = {cpfCnpj}");
+                        if (!dataExtrato.Equals(null) && dataExtrato.ToString() != "01/01/0001 00:00:00") strSQL.Add($"DT_OPERACAO = '{dataExtrato.ToString("yyyy-MM-dd")}'");
+                        cmd.CommandText = string.Concat(QueryExtrato, strSQL.Count > 0 ? " WHERE " : string.Empty, string.Join(" OR ", strSQL));
+
+                        //if (!dataExtrato.Equals(null) && dataExtrato.ToString() != "01/01/0001 00:00:00")
+                        //    cmd.CommandText = QueryExtrato + $" WHERE DT_OPERACAO = '{dataExtrato.ToString("yyyy-MM-dd")}'";
+                        //else
+                        //    cmd.CommandText = QueryExtrato ;
                         var result = await conn.QueryAsync<ExtratoDto>(cmd.CommandText);
                         return result.Select(x => x.toModel());
                     }
@@ -61,7 +65,7 @@ namespace Investment.Portfolio.Core.Repository.OperacoesCompraVenda
             }
             catch (Exception)
             {
-                 return Enumerable.Empty<ExtratoModel>();
+                return Enumerable.Empty<ExtratoModel>();
             }
         }
     }

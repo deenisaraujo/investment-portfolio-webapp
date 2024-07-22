@@ -59,7 +59,7 @@ namespace Investment.Portfolio.Core.Repository.GestaoProdutos
                 return await Task.FromResult(new StatusModel() { Status = HttpStatusCode.BadRequest, Mensagem = "Erro ao tentar alterar o produto: " + ex.Message });
             }
         }
-        public void DeletarProduto(int codProduto)
+        public async void DeletarProduto(int codProduto)
         {
             try
             {
@@ -69,7 +69,7 @@ namespace Investment.Portfolio.Core.Repository.GestaoProdutos
                     {
                         conn.Open();
                         cmd.CommandText = QueryDeletarProduto + $" WHERE ID_PRODUTO = {codProduto}";
-                        conn.ExecuteAsync(cmd.CommandText);
+                        await conn.ExecuteAsync(cmd.CommandText);
                     }
                 }
             }

@@ -11,6 +11,6 @@ namespace Investment.Portfolio.Core.Command.CarteiraCliente
         {
             _operacoesCompraVendaRepository = operacoesCompraVendaRepository;
         }
-        public Task<IEnumerable<ExtratoModel>> Executar(DateTime dataExtrato) => _operacoesCompraVendaRepository.CarregarExtrato(dataExtrato);
+        public Task<IEnumerable<ExtratoModel>> Executar(long cpfCnpj, DateTime dataExtrato) => _operacoesCompraVendaRepository.CarregarExtrato(cpfCnpj, dataExtrato);
     }
 }

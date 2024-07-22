@@ -45,54 +45,9 @@ UtilModal = {
 
     trocarNomeBtnConfirmar: (nome) => _modalBtnConfirmar.html(nome),
 
-    open: (title, action, btnConfirmarCancelar = true, btnConfirmar = true) => {
+    open: (title,body, action, btnConfirmarCancelar = true, btnConfirmar = true) => {
         UtilModal.setTitle(title);
-        UtilModal.setBody(`                        
-                       <div class="col-lg-12">
-    <div class="row">
-	            <div class="col-md-8 mt-2">
-                    <div class="form-group">
-                        <label class="col-form-label-xl">Nome Produto</label>
-                        <input type="text" id="idNomeProdModal" place title="preencha o Nome do Produto">
-                    </div>
-                </div>
-                <div class="col-md-1 mt-5 pt-5">
-                    <div class="col-md-1 align-self-end">
-                        <a href="#" class="style-button" style="padding: 6px 33px !important;background-color: #000!important;color:#fff!important;" onclick="BuscarProduto()">Buscar</a>
-                    </div>
-                </div>
-                </div>
-                <div class="row d-none" id="infoProduto">
-                    <div class="col-md-2 mt-2">
-                        <div class="form-group">
-                            <label class="col-form-label-xl">Cpf ou Cnpj</label>
-                        <input type="text" id="idCpfCnpj" place title="preencha o Cpf ou Cnpj">
-                        </div>
-                    </div>
-                    <div class="col-md-4 mt-2" >
-                        <div class="form-group">
-                            <label class="col-form-label-xl" style="text-align: center;">Ativo</label>
-                            <span id="idAtivoModal" class="textModal">-</span>
-                        </div>
-                    </div>
-                    <div class="col-md-3 mt-2">
-                        <div class="form-group">
-                            <label class="col-form-label-xl" style="text-align: center;">Disponível</label>
-                            <span id="idQuantidadeDisponivelModal" class="textModal">-</span>
-                        </div>
-                    </div>
-                    <div class="col-md-2 mt-2">
-                        <div class="form-group">
-                            <label class="col-form-label-xl" style="text-align: center;">Quantidade</label>
-                            <input type="text" id="idQuantidadeModal" place title="preencha a quantidade">
-                        </div>
-                    </div>
-                 
-                 <div class="modal-footer">
-                <button type="button" class="mx-4" id="modalBtnComprar" onclick="ConfirmarCompraVenda(0)" style="font-size: 12px;background-color:seagreen; color:white">Comprar</button>
-                <button type="button" id="modalBtnVender" data-dismiss="modal" onclick="ConfirmarCompraVenda(1)" style="font-size: 12px;background-color:red; color:white">Vender</button>
-            </div>
-             </div>`);
+        UtilModal.setBody(body);
 
         _confirmar = action;
 

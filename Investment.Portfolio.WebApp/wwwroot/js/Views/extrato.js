@@ -77,8 +77,9 @@ var Extrato = function () {
         });
     }
     me.pesquisar = function () {
-        var data =$('#idCpfCnpj').val();
-        util.ajax.post(`../CarteiraCliente/CarregarExtrato?dataExtrato=${cpfCnpj}`, null, me.callBackSuccess, me.callBackError);
+        var cpfCnpj = $('#idCpfCnpjExtrato').val() == '' ? 0 : $('#idCpfCnpjExtrato').val();
+        var dataExtrato = $('#idDataExtrato').val() == '' ? "01/01/0001 00:00:00" : $('#idDataExtrato').val();
+        util.ajax.post(`../CarteiraCliente/CarregarExtrato?cpfCnpj=${cpfCnpj}&dataExtrato=${dataExtrato}`, null, me.callBackSuccess, me.callBackError);
     }
 }
 function Buscar() {
